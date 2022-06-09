@@ -1,7 +1,7 @@
 //Import Files
 const express = require('express');
 const apiRouter = require('./routes');
-const port = "3001";
+const port = "3000";
 
 //Create an App
 const app = express();

@@ -1,16 +1,16 @@
 //importing mysql
 const mysql = require('mysql');
 
-//Creating a pool 
+//Creating a pool
 //A pool will allows connect to database
 //and it will manage a list of connection  to the database
 const db = mysql.createPool({
     connectionLimit : 10,    //0 users allowed at a time
-    password :'Lindo.1.',
+    password :'password',
     user: 'root',
     database:'SchoolDB',
     host: 'localhost',
-    port: '3306'  
+    port: '3306'
 });
 
 //Creating an empty object to be exported with database inform
@@ -81,6 +81,21 @@ student.CreateStudent = (value) =>{
         })
     });
 }
+// method for updating student on the database
+student.UpdateStudent =(value, id) =>{
+  return new Promise((resolve, reject) =>{
+    let FirstName = value.FirstName;
+    let LastName = value.LastName;
+    let Gender = value.Gender;
+    let Grade = value.Grade;
 
-
+    db.query('UPDATE Student SET FirstName =?, LastName =?, Gender =?, Grade =? WHERE Student_Id =?',
+        [FirstName , LastName, Gender, Grade, id], (err, result)=>{
+        if(err){
+            return reject(err);
+        }
+        return resolve(result);
+    })
+});
+}
 module.exports = student;

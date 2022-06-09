@@ -30,6 +30,7 @@ router.get('/student/:id', async(req, res) => {
     }
 });
 
+//HTTP request DELETE  method that uses Async and will DELETE student
 router.delete('/delete/:id', async(req, res) => {
     try{
         res.json(await db.deleteStudent(req.params.id));
@@ -40,6 +41,7 @@ router.delete('/delete/:id', async(req, res) => {
     }
 });
 
+//HTTP request POST method that uses Async and will Create student
 router.post('/create', async(req, res) => {
     try{
         res.json(await db.CreateStudent(req.query));
@@ -50,7 +52,16 @@ router.post('/create', async(req, res) => {
     }
 });
 
-
+//HTTP request PUT method that uses Async and will update student
+router.put('/update/:id', async(req, res) => {
+  try{
+      const id = req.params.id;
+      res.json(await db.UpdateStudent(req.query, id));
+  }catch(err){
+      console.log(err);
+      res.sendStatus(500);
+  }
+});
 
 //exporting router
 module.exports = router;
